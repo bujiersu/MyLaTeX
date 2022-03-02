@@ -1,0 +1,86 @@
+\documentclass[a4paper,twoside,AutoFakeBold,scheme=chinese]{ctexbook}
+% [AutoFakeBold,scheme=chinese]宋体加粗代码
+% [openany]从偶数页开始; [openright]从右手边开始新页
+%%%%%%%%%%%%%% 导言区
+%%%%%%%%%%各个宏包
+\usepackage[colorlinks,urlcolor=black,linkcolor=black,citecolor=black]{hyperref} % 超文本
+\usepackage[left=2.5cm,right=2.5cm,top=2.54cm,bottom=2.54cm]{geometry} % 页面尺寸
+\usepackage{booktabs}   % 三线表
+\usepackage{longtable}  % 长表格
+\usepackage{xeCJK}      % 中文字体
+\usepackage{fontspec}   % 英文字体
+\usepackage{fancyhdr}   % 页眉页脚
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{tocbibind} % 将目录，参考文献等加入目录
+%\newCJKfontfamily\sonti{方正书宋简体}[BoldFont=方正粗宋简体]
+%%%%% 默认设置
+\setCJKmainfont{SimSun}       % 默认中文字体为宋体
+\setmainfont{Times New Roman} % 默认英文字体为新罗马
+\setlength\parskip{0pt}   % 段落间距为0
+\setlength{\baselineskip}{20pt}  % 默认20pt行距
+%\renewcommand{\baselinestretch}{1.25} % 默认1.25倍行距
+
+%%%%%%%%%%%%%%%%%%%%% 页眉页脚开始
+% Odd奇数；Even偶数；左中右-LCR
+\pagestyle{fancy}
+\fancyhf{} % 清除页眉页脚
+\cfoot{\zihao{5}\thepage} % 页脚居中页码
+\fancyhead[CO]{\songti\zihao{5}\leftmark}  %\leftmark章标题，\@title文章标题
+\fancyhead[CE]{\songti\zihao{5}西北工业大学博士学位论文}
+% 各章首页页眉页脚默认设置更改
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyhead[CO]{\songti\zihao{5}\leftmark}
+	\cfoot{\zihao{5}\thepage}
+}
+% 设置页眉双横线
+\newcommand{\makeheadrule}{
+	\makebox[0pt][l]{\rule[1.75pt]{\headwidth}{3pt}}%
+	                 \rule[0pt]{\headwidth}{0.75pt}}
+\renewcommand{\headrule}{%
+	{\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
+		\makeheadrule}}
+\makeatother
+%%%%%%%%%%% 各个标题格式
+\ctexset{chapter={format={\heiti \zihao{3} \centering},beforeskip=0pt,afterskip=0pt},
+	section={format={\heiti \zihao{4}},beforeskip=0pt,afterskip=0pt},
+	subsection={format={\heiti \zihao{-4}},beforeskip=0pt,afterskip=0pt},
+}
+%%%%%%%%%%%%%%%%%%%%% 参考文献
+\bibliographystyle{unsrt} %plain, unsrt
+\usepackage[numbers,sort&compress]{natbib} % 连号缩写（[1][2][3]变为[1-3]）
+\newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}} % 参考文献编号到左上角
+%%%%%%%%%%%%%%%%% 封面
+\title{\heiti \zihao{3}我的论文}
+\author{\kaishu \zihao{4} 张三 \songti \zihao{4}西工大}
+\date{\today}
+%%%%%%%%%%%%
+\begin{document} 
+	\maketitle
+	\thispagestyle{empty}
+	\frontmatter % 前文
+	\pagenumbering{Roman}
+    \include{abZh}
+    \thispagestyle{empty}
+    \include{abEn}
+    \thispagestyle{empty}
+    \tableofcontents
+
+	\mainmatter % 正文
+	\include{yinyan}
+	\thispagestyle{empty}
+	\include{modeling}
+	\include{shentoulv}
+	\chapter{树脂流动}
+	\chapter{空隙}
+	\chapter{总结与展望}\label{conclusion}
+	\section{工作总结}
+	\section{工作展望}
+	\backmatter % 附录等
+	\bibliography{ref}
+	\nocite{*}
+\end{document}
